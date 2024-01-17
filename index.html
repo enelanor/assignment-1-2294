@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>MDIA 2294</title>
+	
+	<style>
+	    thead{
+	        font-weight:bold;
+	    }
+	    
+	    td{
+	        padding-left:5px;
+	        padding-right:5px;	        
+	    }
+	    
+	    td.sub-total{
+	        text-align:right;	        
+	    }
+	</style>
+</head>
+<body>
+	<h1>MDIA 2294: ACME Corp Invoice</h1>
+	
+	<table>
+	    <thead>
+	        <tr>
+	            <td>ITEM</td>
+	            <td>DESCRIPTION</td>
+	            <td>QTY</td>
+	            <td>PRICE</td>
+	            <td>LINE TOTAL</td>
+	        </tr>
+	    </thead>
+	    <tbody>
+	        <tr>
+	            <td>1</td>
+	            <td><input id="line-1-description" type="text" size="40" value="Anvil" /></td>
+	            <td><input id="line-1-quantity" type="text" size="3" value="5" /></td>
+	            <td><input id="line-1-price" type="text" size="6" value="35.00" /></td>
+	            <td class="sub-total"><span id="line-1"></span></td>
+	        </tr>
+	        <tr>
+	            <td>2</td>
+	            <td><input id="line-2-description" type="text" size="40" value="Rocket Skates (each)" /></td>
+	            <td><input id="line-2-quantity" type="text" size="3" value="2" /></td>
+	            <td><input id="line-2-price" type="text" size="6" value="24.99" /></td>
+	            <td class="sub-total"><span id="line-2"></span></td>
+	        </tr>
+	        <tr>
+	            <td>3</td>
+	            <td><input id="line-3-description" type="text" size="40" value="Giant Magnet" /></td>
+	            <td><input id="line-3-quantity" type="text" size="3" value="1" /></td>
+	            <td><input id="line-3-price" type="text" size="6" value="125.50" /></td>
+	            <td class="sub-total"><span id="line-3"></span></td>
+	        </tr>
+	        <tr>
+	            <td>4</td>
+	            <td><input id="line-4-description" type="text" size="40" value="Ball bearings" /></td>
+	            <td><input id="line-4-quantity" type="text" size="3" value="1000" /></td>
+	            <td><input id="line-4-price" type="text" size="6" value="0.25" /></td>
+	            <td class="sub-total"><span id="line-4"></span></td>
+	        </tr>
+	        <tr>
+	            <td>5</td>
+	            <td><input id="line-5-description" type="text" size="40" value="Portable holes" /></td>
+	            <td><input id="line-5-quantity" type="text" size="3" value="12" /></td>
+	            <td><input id="line-5-price" type="text" size="6" value="15.25" /></td>
+	            <td class="sub-total"><span id="line-5"></span></td>
+	        </tr>
+	    </tbody>
+	    <tfoot>
+	        <tr>
+	            <td colspan="4" style="text-align:right;">SUB TOTAL</td>  
+	            <td class="sub-total"><span id="sub-total"></span></td>	        
+	        </tr>
+	        <tr>
+	            <td colspan="4" style="text-align:right;">DISCOUNT</td>  
+	            <td class="sub-total"><span id="discount"></span></td>	        
+	        </tr>
+	        <tr>
+	            <td colspan="4" style="text-align:right;">TAX</td>  
+	            <td class="sub-total"><span id="tax"></span></td>	        
+	        </tr>
+	        <tr>
+	            <td colspan="4" style="text-align:right;">TOTAL</td>  
+	            <td class="sub-total" style="border-top:solid black 1px"><span id="Total"></span></td>	        
+	        </tr>
+	    </tfoot>	    
+	</table>
+	
+	<div><button id="calculate">Calculate</button></div>
+	<div>NOTE: discounts of 10% are given to orders over $250</div>
+
+	<script>
+
+// button variable (const = cannot change once assigned) is made in the beginning to appear later in the end
+		const calc_btn = document.querySelector("#calculate");
+
+// this is to show how much the product costs (ex. the ANVIL is $35.00)
+		const ANVIL_FACTOR = 35.00;
+		const ROCK_FACTOR = 24.99;
+		const GIANT_FACTOR = 125.50;
+		const BALL_FACTOR = 0.25;
+		const PORT_FACTOR = 15.25;
+
+// function is the series of steps that happen in a sequence when triggered (everything that is happening is in the curly brackets) 
+	    function calculate() {
+			let total_sum = 0;
+
+
+// ANVIL 
+// the "let quantity/price" parts is where the computer is looking for the HTML elements
+			let quantityAnvil = document.querySelector("#line-1-quantity").value;
+			let priceAnvil = document.querySelector("#line-1-price").value;
+// this is for multiplying the price with the quantity
+			let line_totalAnvil = quantityAnvil * priceAnvil;
+
+// the computer is looking for the HTML element with queryselector and then "toFixed" means it is rounding the number to 2 decimal places
+			document.querySelector("#line-1").innerHTML = line_totalAnvil.toFixed(2);
+
+// this to keep track of the total cost, "+=" means it adds value to the right
+			total_sum += line_totalAnvil;
+
+
+//ROCK
+// the "let quantity/price" parts is where the computer is looking for the HTML elements
+			let quantityRock = document.querySelector("#line-2-quantity").value;
+			let priceRock = document.querySelector("#line-2-price").value;
+// this is for multiplying the price with the quantity
+			let line_totalRock = quantityRock * priceRock;
+
+// the computer is looking for the HTML element with queryselector and then "toFixed" means it is rounding the number to 2 decimal places
+			document.querySelector("#line-2").innerHTML = line_totalRock.toFixed(2)
+
+// this to keep track of the total cost, "+=" means it adds value to the right
+			total_sum += line_totalRock;
+
+
+//GIANT
+// the "let quantity/price" parts is where the computer is looking for the HTML elements
+			let quantityGiant = document.querySelector("#line-3-quantity").value;
+			let priceGiant = document.querySelector("#line-3-price").value;
+// this is for multiplying the price with the quantity
+			let line_totalGiant = quantityGiant * priceGiant;
+
+// the computer is looking for the HTML element with queryselector and then "toFixed" means it is rounding the number to 2 decimal places
+			document.querySelector("#line-3").innerHTML = line_totalGiant.toFixed(2);
+
+// this to keep track of the total cost, "+=" means it adds value to the right
+			total_sum += line_totalGiant;
+
+
+//BALL
+// the "let quantity/price" parts is where the computer is looking for the HTML elements
+			let quantityBall = document.querySelector("#line-4-quantity").value;
+			let priceBall = document.querySelector("#line-4-price").value;
+// this is for multiplying the price with the quantity
+			let line_totalBall = quantityBall * priceBall;
+
+// the computer is looking for the HTML element with queryselector and then "toFixed" means it is rounding the number to 2 decimal places
+			document.querySelector("#line-4").innerHTML = line_totalBall.toFixed(2);
+
+// this to keep track of the total cost, "+=" means it adds value to the right
+			total_sum += line_totalBall;
+
+
+//PORT 
+// the "let quantity/price" parts is where the computer is looking for the HTML elements
+			let quantityPort = document.querySelector("#line-5-quantity").value;
+			let pricePort = document.querySelector("#line-5-price").value;
+// this is for multiplying the price with the quantity
+			let line_totalPort = quantityPort * pricePort;
+
+// the computer is looking for the HTML element with queryselector and then "toFixed" means it is rounding the number to 2 decimal places
+			document.querySelector("#line-5").innerHTML = line_totalPort.toFixed(2);
+
+// this to keep track of the total cost, "+=" means it adds value to the right
+			total_sum += line_totalPort;
+
+
+//SUB TOTAL
+// this shows the total cost of all of the products while founding it to 2 decimal places
+			document.querySelector("#sub-total").innerHTML = total_sum.toFixed(2);
+	    }
+
+// made to trigger the "calculate" function when the calculate button is clicked
+		calc_btn.addEventListener("click", calculate);
+	
+	
+    </script>
+</body>
+</html>
